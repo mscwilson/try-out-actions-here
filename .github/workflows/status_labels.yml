@@ -14,6 +14,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        with:
+          repository: mscwilson/status-label-update@main
 
       - uses: ruby/setup-ruby@v1
         with:
