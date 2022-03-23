@@ -26,7 +26,12 @@ jobs:
           ruby-version: 3.1
           bundler-cache: true # runs ‘bundle install’ and caches installed gems automatically
 
-      - name: Run ruby script
-        uses: mscwilson/status-label-update@main
+      # - name: Run ruby script
+      #   uses: mscwilson/status-label-update@main
+      #   env:
+      #     ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Changelog something
+        uses: mscwilson/changelog-creator@main
         env:
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
