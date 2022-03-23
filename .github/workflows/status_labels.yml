@@ -21,6 +21,6 @@ jobs:
           bundler-cache: true # runs ‘bundle install’ and caches installed gems automatically
 
       - name: Run ruby script
-        uses: mscwilson/changelog-test/issue_labels@main
+        uses: mscwilson/status-label-update@main
         env:
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
