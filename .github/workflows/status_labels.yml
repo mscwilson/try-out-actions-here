@@ -1,4 +1,4 @@
-name: "Update status labels"
+name: "Labels and changelogs"
 
 on:
   create:
@@ -16,10 +16,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Checkout labels action
+      # - name: Checkout labels action
+      #   uses: actions/checkout@v3
+      #   with:
+      #     repository: mscwilson/status-label-update
+
+      - name: Checkout changelog action
         uses: actions/checkout@v3
         with:
-          repository: mscwilson/status-label-update
+          repository: mscwilson/changelog-creator
 
       - uses: ruby/setup-ruby@v1
         with:
