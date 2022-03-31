@@ -24,6 +24,6 @@ jobs:
           bundler-cache: true # runs ‘bundle install’ and caches installed gems automatically
 
       - name: Run ruby script
-        uses: mscwilson/changelog-creator@0.1.0
+        uses: mscwilson/changelog-creator@main
         env:
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
