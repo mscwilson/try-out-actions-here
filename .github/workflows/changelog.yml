@@ -2,7 +2,7 @@ name: "my Ruby workflow"
 
 on:
   pull_request:
-    types: [opened, merged]
+    types: [opened, closed]
 
 permissions: write-all
 
