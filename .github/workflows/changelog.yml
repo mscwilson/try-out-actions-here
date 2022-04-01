@@ -40,9 +40,12 @@ jobs:
         env:
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  echo-changelog:
-    runs-on: ubuntu-latest
-    needs: changelog
+      - name: Print output
+        run: echo "${{ steps.changelog.outputs.fancylog }}"
 
-    steps:
-      - run: echo ${{ needs.changelog.outputs.fancylog }}
+  # echo-changelog:
+  #   runs-on: ubuntu-latest
+  #   needs: changelog
+
+  #   steps:
+  #     - run: echo ${{ needs.changelog.outputs.fancylog }}
