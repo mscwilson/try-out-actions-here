@@ -23,7 +23,7 @@ jobs:
           bundler-cache: true # runs ‘bundle install’ and caches installed gems automatically
 
       - name: Run ruby script
-        if: $GITHUB_EVENT_NAME == "pull_request" && github.event.action == "opened"
+        if: ${{GITHUB_EVENT_NAME}} == "pull_request" && github.event.action == "opened"
         uses: mscwilson/changelog-creator@main
         env:
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
