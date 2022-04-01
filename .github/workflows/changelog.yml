@@ -1,6 +1,6 @@
 name: "my Ruby workflow"
 
-on: pull_request
+on: [push, pull_request]
 
 permissions: write-all
 
