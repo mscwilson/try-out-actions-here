@@ -5,8 +5,18 @@ on: [push, pull_request]
 permissions: write-all
 
 jobs:
-  build:
+  print-stuff:
     runs-on: ubuntu-latest
+
+    - name: Print ENV
+      run: env
+
+    - name: echo stuff
+      run: echo $GITHUB_EVENT_NAME
+
+  changelog:
+    runs-on: ubuntu-latest
+    if: ${{ env.GITHUB_EVENT_NAME }} == "pull_request" && github.event.action == "opened"
 
     steps:
       - uses: actions/checkout@v2
@@ -15,18 +25,12 @@ jobs:
         with:
           repository: mscwilson/changelog-creator
 
-      - name: Print ENV
-        run: env
-
-      - name: echo stuff
-        run: echo $GITHUB_EVENT_NAME
-
       - uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true # runs ‘bundle install’ and caches installed gems automatically
 
       - name: Run ruby script
-        if: ${{ env.GITHUB_EVENT_NAME }} == "pull_request" && github.event.action == "opened"
+        
         uses: mscwilson/changelog-creator@main
         env:
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
