@@ -18,14 +18,12 @@ jobs:
       - name: Print ENV
         run: env
 
-      - name: Print github event
-        run: echo ${{ toJSON(github.event) }}
-
       - uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true # runs ‘bundle install’ and caches installed gems automatically
 
       - name: Run ruby script
+        if: github.event.type = "PullRequestEvent" && github.event.payload.action = "opened"
         uses: mscwilson/changelog-creator@main
         env:
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
