@@ -18,6 +18,9 @@ jobs:
       - name: Print ENV
         run: env
 
+      - name: echo stuff
+        run: echo $GITHUB_EVENT_NAME
+
       - uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true # runs ‘bundle install’ and caches installed gems automatically
