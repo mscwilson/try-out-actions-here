@@ -1,6 +1,6 @@
 name: "my Ruby workflow"
 
-on: [push, pull_request]
+on: pull_request
 
 permissions: write-all
 
@@ -36,7 +36,7 @@ jobs:
 
       - name: Run ruby script
         id: changelog
-        uses: mscwilson/changelog-creator@main
+        uses: mscwilson/changelog-creator@0.1.0
         env:
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
