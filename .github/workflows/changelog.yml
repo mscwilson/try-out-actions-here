@@ -19,7 +19,7 @@ jobs:
 
   changelog:
     runs-on: ubuntu-latest
-    # if: github.event_name == 'pull_request' && github.event.action == 'opened'
+    if: github.event_name == 'pull_request' && github.event.action == 'opened'
     outputs:
       fancylog: ${{ steps.changelog.outputs.fancylog }}
 
