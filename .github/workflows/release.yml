@@ -68,10 +68,10 @@ jobs:
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: print notes
-        run: echo ${{ steps.release-notes.outputs.release-notes }} | base64 --decode
+        run: echo ${{ steps.release-notes.outputs.release-notes | base64 --decode }}
 
   publish:
-    needs: prepare-to-publish
+    needs: [prepare-to-publish, release-notes]
     runs-on: ubuntu-latest
 
     steps:
@@ -83,6 +83,6 @@ jobs:
         with:
           name: Version ${{ needs.prepare-to-publish.outputs.gem-version }}
           prerelease: ${{ contains(needs.prepare-to-publish.outputs.gem-version, '-') }}
-          body: ${{ needs.release-notes.outputs.release-notes }} | base64 --decode
+          body: ${{ needs.release-notes.outputs.release-notes | base64 --decode }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
