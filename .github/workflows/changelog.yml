@@ -41,4 +41,7 @@ jobs:
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Print output
-        run: echo ${{ steps.release-notes.outputs.release-notes | base64 --decode }}
+        run: echo ${{ steps.release-notes.outputs.release-notes }}
+
+      - name: Print decoded output?!
+        run: echo ${{ steps.release-notes.outputs.release-notes }} | base64 --decode
