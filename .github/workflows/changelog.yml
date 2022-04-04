@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request' && github.event.action == 'opened'
     outputs:
-      fancylog: ${{ steps.changelog.outputs.fancylog }}
+      release-notes: ${{ steps.changelog.outputs.release-notes }}
 
     steps:
       - uses: actions/checkout@v2
@@ -41,7 +41,7 @@ jobs:
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Print output
-        run: echo "${{ steps.changelog.outputs.fancylog }}"
+        run: echo ${{ steps.release-notes.outputs.release-notes }} | base64 --decode
 
   # echo-changelog:
   #   runs-on: ubuntu-latest
