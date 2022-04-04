@@ -46,23 +46,43 @@ jobs:
           echo "Tag version (${{ steps.tag-version.outputs.tag-version }}) doesn't match project version (${{ steps.gem-version.outputs.gem-version }})"
           exit 1
 
-  # publish:
-  #   needs: prepare-to-publish
-  #   runs-on: ubuntu-latest
+  release-notes:
+    needs: prepare-to-publish
+    runs-on: ubuntu-latest
+    outputs:
+      release-notes: ${{ steps.release-notes.outputs.release-notes }}
 
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v2
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          repository: mscwilson/changelog-creator
 
-  #     - name: Set up Ruby
-  #       uses: ruby/setup-ruby@v1
-  #       with:
-  #         ruby-version: 3.1
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true # runs ‘bundle install’ and caches installed gems automatically
 
-  #     - name: Release on GitHub
-  #       uses: softprops/action-gh-release@v0.1.12
-  #       with:
-  #         name: Version ${{ needs.prepare-to-publish.outputs.gem-version }}
-  #         prerelease: ${{ contains(needs.prepare-to-publish.outputs.gem-version, '-') }}
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name:
+        id: release-notes
+        uses: mscwilson/changelog-creator@0.1.0
+        env:
+          ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: print notes
+        run: echo ${{ steps.release-notes.outputs.release-notes }} | base64 --decode
+
+  publish:
+    needs: prepare-to-publish
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Release on GitHub
+        uses: softprops/action-gh-release@v0.1.12
+        with:
+          name: Version ${{ needs.prepare-to-publish.outputs.gem-version }}
+          prerelease: ${{ contains(needs.prepare-to-publish.outputs.gem-version, '-') }}
+          body: ${{ needs.release-notes.outputs.release-notes }} | base64 --decode
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
