@@ -6,23 +6,6 @@ on:
       - "*"
 
 jobs:
-  print-stuff:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Print ENV
-        run: env
-
-      - name: echo stuff
-        run: echo $GITHUB_EVENT_NAME
-
-      - name: print github object
-        env:
-          GITHUB_CONTEXT: ${{ toJSON(github) }}
-        run: echo "$GITHUB_CONTEXT"
-
   prepare-to-publish:
     runs-on: ubuntu-latest
     outputs:
@@ -34,7 +17,7 @@ jobs:
 
       - name: Save gem version
         id: gem-version
-        run: echo "::set-output name=gem-version::$(grep -oE "[0-9]+\.[0-9]+\.[0-9]+-?[a-z]*\.?[0-9]*" version.rb)"
+        run: echo "::set-output name=gem-version::$(grep -oE "[0-9]+\.[0-9]+\.[0-9]+-?[a-z]*\.?[0-9]*" lib/version.rb)"
 
       - name: Save tag version
         id: tag-version
@@ -61,17 +44,11 @@ jobs:
         with:
           bundler-cache: true # runs ‘bundle install’ and caches installed gems automatically
 
-      - name: Generate release notes
+      - name: Create release notes
         id: release-notes
         uses: mscwilson/changelog-creator@0.1.0
         env:
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: print notes
-        run: echo ${{ steps.release-notes.outputs.release-notes }}
-
-      - name: print decoded notes
-        run: echo ${{ steps.release-notes.outputs.release-notes }} | base64 --decode
 
   publish:
     needs: [prepare-to-publish, release-notes]
@@ -81,11 +58,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Save release notes to file
+        run: |
+          echo ${{ needs.release-notes.outputs.release-notes }} | base64 --decode > ${{ github.workspace }}-CHANGELOG.txt
+
       - name: Release on GitHub
         uses: softprops/action-gh-release@v0.1.12
         with:
           name: Version ${{ needs.prepare-to-publish.outputs.gem-version }}
           prerelease: ${{ contains(needs.prepare-to-publish.outputs.gem-version, '-') }}
-          body: ${{ needs.release-notes.outputs.release-notes }} | base64 --decode
+          body_path: ${{ github.workspace }}-CHANGELOG.txt
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
