@@ -35,7 +35,7 @@ jobs:
           bundler-cache: true # runs ‘bundle install’ and caches installed gems automatically
 
       - name: Run ruby script
-        id: changelog
+        id: release-notes
         uses: mscwilson/changelog-creator@0.1.0
         env:
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
