@@ -1,0 +1,4 @@
+{
+  "lib/version.rb": "repo_version = \"0.1.0\"",
+  "README.md": "latest release was version 0.1.0"
+}

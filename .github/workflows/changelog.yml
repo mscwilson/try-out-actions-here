@@ -39,6 +39,8 @@ jobs:
         uses: mscwilson/changelog-creator@0.1.0
         env:
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          operation: "github release notes"
 
       - name: Print output
         run: echo ${{ steps.release-notes.outputs.release-notes }}
