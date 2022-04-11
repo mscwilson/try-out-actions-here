@@ -40,7 +40,7 @@ jobs:
         env:
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          operation: "github release notes"
+          operation: "prepare"
 
       - name: Print output
         run: echo ${{ steps.release-notes.outputs.release-notes }}

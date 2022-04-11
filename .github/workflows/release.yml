@@ -47,6 +47,8 @@ jobs:
       - name: Create release notes
         id: release-notes
         uses: mscwilson/changelog-creator@0.1.0
+        with:
+          operation: "github"
         env:
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
