@@ -9,8 +9,16 @@ If this was a gem, it would be imported like this:
 ```ruby
 # in Gemfile
 gem "try-out-actions-here", "0.1.0"
-
-Yes, v0.1.0 has a pleasing symmetry.
 ```
+Yes, v0.1.0 has a pleasing symmetry.
 
+Here are more copies of the Gemfile:
+```ruby
+# in Gemfile
+gem "try-out-actions-here", "0.1.0"
+```
+```ruby
+# in Gemfile
+gem "try-out-actions-here", "0.1.0"
+```
 This 0.1.0 should stay unchanged. And "v0.1.0", and this is 10.1.0. Or even 5.2.3.
