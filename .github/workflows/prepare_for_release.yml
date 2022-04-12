@@ -1,4 +1,4 @@
-name: "my Ruby workflow"
+name: "Prepare for release"
 
 on: pull_request
 
@@ -17,7 +17,7 @@ jobs:
       - name: echo stuff
         run: echo $GITHUB_EVENT_NAME
 
-  changelog:
+  prepare-for-release:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
     outputs:
