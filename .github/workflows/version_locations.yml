@@ -1,0 +1,5 @@
+lib/version.rb: repo_version = "x.x.x"
+README.md:
+  - latest release was version X.X.X
+  - Yes, vx.x.x has a pleasing symmetry
+  - gem "try-out-actions-here", "x.x.x"
