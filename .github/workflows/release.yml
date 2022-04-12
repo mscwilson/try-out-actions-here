@@ -6,6 +6,17 @@ on:
       - "*"
 
 jobs:
+  print-stuff:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: echo "$GITHUB_CONTEXT"
+
   prepare-to-publish:
     runs-on: ubuntu-latest
     outputs:
@@ -27,6 +38,12 @@ jobs:
         if: ${{ steps.tag-version.outputs.tag-version != steps.gem-version.outputs.gem-version }}
         run: |
           echo "Tag version (${{ steps.tag-version.outputs.tag-version }}) doesn't match project version (${{ steps.gem-version.outputs.gem-version }})"
+          exit 1
+
+      - name: Fail if wrong branch
+        if:
+        run: |
+          echo "This tag is not on the expected branch! This is branch "
           exit 1
 
   release-notes:
