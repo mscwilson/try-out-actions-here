@@ -40,11 +40,10 @@ jobs:
           echo "Tag version (${{ steps.tag-version.outputs.tag-version }}) doesn't match project version (${{ steps.gem-version.outputs.gem-version }})"
           exit 1
 
-      - name: Fail if wrong branch
-        if:
-        run: |
-          echo "This tag is not on the expected branch! This is branch "
-          exit 1
+      # - name: print git stuff
+      #   run: |
+      #     echo ${{ git branch --contains test }}
+      #     exit 1
 
   release-notes:
     needs: prepare-to-publish
