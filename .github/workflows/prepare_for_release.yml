@@ -28,7 +28,7 @@ jobs:
 
       - uses: actions/checkout@v2
         with:
-          repository: mscwilson/changelog-creator
+          repository: snowplow-incubator/release-helper-action
 
       - uses: ruby/setup-ruby@v1
         with:
@@ -36,7 +36,7 @@ jobs:
 
       - name: Run ruby script
         id: release-notes
-        uses: mscwilson/changelog-creator@0.2.0
+        uses: snowplow-incubator/release-helper-action@0.1.0
         env:
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
