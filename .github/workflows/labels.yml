@@ -10,7 +10,7 @@ jobs:
 
       - name: Hello world action step
         id: hello
-        uses: mscwilson/labels-helper-action@v1.2
+        uses: mscwilson/labels-helper-action@main
         with:
           who-to-greet: "Ace"
       # Use the output from the `hello` step
