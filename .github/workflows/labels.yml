@@ -1,7 +1,8 @@
 name: "Update issue labels"
-on: push:
-    pull_request:
-      types: opened
+on: pull_request:
+      types: 
+        - opened
+    push:
 
 jobs:
   labels:
