@@ -1,3 +1,4 @@
+name: "Update issue labels"
 on: [push, create]
 
 jobs:
@@ -7,12 +8,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Hello world action step
-        id: hello
+      - name: Update issue labels
         uses: mscwilson/labels-helper-action@main
         env:
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # # Use the output from the `hello` step
-      # - name: Get the output time
-      #   run: echo "The time was ${{ steps.hello.outputs.time }}"
