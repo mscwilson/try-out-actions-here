@@ -1,3 +1,4 @@
+name: "Update issue labels"
 on: [push, create]
 
 jobs:
