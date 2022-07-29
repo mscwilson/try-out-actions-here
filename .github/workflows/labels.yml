@@ -1,5 +1,7 @@
 name: "Update issue labels"
-on: [push, create]
+on: push:
+    pull_request:
+      types: opened
 
 jobs:
   labels:
