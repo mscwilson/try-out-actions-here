@@ -4,6 +4,7 @@ on:
     types:
       - opened
   push:
+  create:
 
 jobs:
   labels:
