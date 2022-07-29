@@ -10,7 +10,7 @@ jobs:
       - name: Hello world action step
         id: hello
         uses: mscwilson/labels-helper-action@main
-        env:
+        with:
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # # Use the output from the `hello` step
