@@ -4,6 +4,9 @@ on:
     types:
       - opened
   push:
+    branches:
+      - "release/**"
+  create:
 
 jobs:
   labels:
