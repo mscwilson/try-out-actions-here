@@ -6,6 +6,17 @@ on:
       - "*"
 
 jobs:
+  print-stuff:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: echo "$GITHUB_CONTEXT"
+
   prepare-to-publish:
     runs-on: ubuntu-latest
     outputs:
@@ -29,6 +40,11 @@ jobs:
           echo "Tag version (${{ steps.tag-version.outputs.tag-version }}) doesn't match project version (${{ steps.gem-version.outputs.gem-version }})"
           exit 1
 
+      # - name: print git stuff
+      #   run: |
+      #     echo ${{ git branch --contains test }}
+      #     exit 1
+
   release-notes:
     needs: prepare-to-publish
     runs-on: ubuntu-latest
@@ -46,7 +62,9 @@ jobs:
 
       - name: Create release notes
         id: release-notes
-        uses: mscwilson/changelog-creator@0.1.0
+        uses: mscwilson/changelog-creator@0.2.0
+        with:
+          operation: "github"
         env:
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
