@@ -16,6 +16,6 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Update issue labels
-        uses: mscwilson/labels-helper-action@main
+        uses: snowplow-incubator/labels-helper-action@main
         env:
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
