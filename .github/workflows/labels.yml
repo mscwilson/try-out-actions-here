@@ -9,7 +9,7 @@ on:
       - "release/**"
 
 jobs:
-  labels:
+  update-labels:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
