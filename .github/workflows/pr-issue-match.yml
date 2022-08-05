@@ -1,5 +1,6 @@
-name: "Match PR to issue"
+name: "Admin"
 on:
+  create:
   pull_request:
     types:
       - opened
@@ -10,13 +11,25 @@ on:
       - "release/**"
 
 jobs:
-  sort-out-pr:
+  update-labels:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Update issue status labels
+        uses: snowplow-incubator/labels-helper-action@v1
+        env:
+          ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  link-pr-issue:
+    runs-on: ubuntu-latest
+    if: github.event_name == "pull_request"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
       - name: Match the issue to the PR
-        uses: mscwilson/pull-request-helper-action@main
+        uses: snowplow-incubator/pull-request-helper-action@v1
         env:
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
