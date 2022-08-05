@@ -1,16 +1,13 @@
-name: "Match PR to issue"
+name: "Link PR to issue"
 on:
   pull_request:
     types:
       - opened
     branches:
       - "release/**"
-  push:
-    branches:
-      - "release/**"
 
 jobs:
-  sort-out-pr:
+  link-pr-issue:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
