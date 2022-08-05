@@ -1,14 +1,10 @@
 name: "Match PR to issue"
 on:
-  push
-  # pull_request:
-  #   types:
-  #     - opened
-  #   branches:
-  #     - "release/**"
-  # push:
-  #   branches:
-  #     - "release/**"
+  pull_request:
+    types:
+      - opened
+    # branches:
+    #   - "release/**"
 
 jobs:
   sort-out-pr:
