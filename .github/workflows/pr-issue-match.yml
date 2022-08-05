@@ -3,11 +3,8 @@ on:
   pull_request:
     types:
       - opened
-    branches:
-      - "release/**"
-  push:
-    branches:
-      - "release/**"
+    # branches:
+    #   - "release/**"
 
 jobs:
   sort-out-pr:
